@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Buka Undangan - Faris & Erni</title>
+  <title>Undangan Pernikahan - Faris & Erni</title>
   <style>
     body {
       margin: 0;
@@ -18,95 +18,47 @@
       text-align: center;
     }
     .wrapper {
-      padding: 40px;
+      padding: 50px 30px;
       border-radius: 20px;
       background: white;
       box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      max-width: 400px;
+      max-width: 450px;
     }
-    h1 {
-      font-size: 28px;
-      margin-bottom: 20px;
-    }
-    h2 {
-      font-size: 22px;
-      margin-bottom: 10px;
-      color: #8d493a;
-    }
-    p {
-      font-size: 18px;
-      margin-bottom: 20px;
-    }
-    input[type="text"] {
-      padding: 10px;
-      width: 80%;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-      margin-bottom: 20px;
-      text-align: center;
-    }
+    h1 { font-size: 32px; margin-bottom: 20px; }
+    h2 { font-size: 24px; color: #8d493a; margin-bottom: 20px; }
+    p { font-size: 20px; margin-bottom: 30px; }
     button {
       background-color: #8d493a;
       color: white;
-      padding: 12px 20px;
+      padding: 12px 25px;
       border: none;
       border-radius: 8px;
       font-size: 18px;
       cursor: pointer;
       transition: 0.3s;
     }
-    button:hover {
-      background-color: #6f372d;
-    }
+    button:hover { background-color: #6f372d; }
   </style>
 </head>
 <body>
   <div class="wrapper">
     <h1>Undangan Pernikahan</h1>
-    <h2>Faris & Erni</h2>
+    <h2>Faria & Erni</h2>
     <p id="namaTamu">Kepada Yth: Tamu Undangan</p>
-    <input type="text" id="inputNama" placeholder="Masukkan nama Anda">
-    <br>
-    <button onclick="bukaUndangan()">Buka Undangan</button>
-    <p style="font-size:14px; margin-top:10px; color:#555;">
-      Link saat ini: <span id="linkTamu">undangan.html?nama=Tamu+Undangan</span>
-    </p>
+    <button onclick="bukaAcara()">Buka Acara</button>
   </div>
 
   <script>
-    const inputNama = document.getElementById("inputNama");
-    const namaTamu = document.getElementById("namaTamu");
-    const linkTamu = document.getElementById("linkTamu");
-
-    // ambil nama tamu dari URL ?nama=
+    // Ambil nama tamu dari URL ?nama=
     const params = new URLSearchParams(window.location.search);
-    const namaUrl = params.get("nama");
-    if (namaUrl) {
-      inputNama.value = namaUrl;
-      namaTamu.innerText = "Kepada Yth: " + namaUrl;
-      updateLink(namaUrl);
-    } else {
-      updateLink("Tamu Undangan");
-    }
+    const nama = params.get("nama") || "Tamu Undangan";
 
-    // update teks & URL saat diketik
-    inputNama.addEventListener("input", () => {
-      const value = inputNama.value.trim() || "Tamu Undangan";
-      namaTamu.innerText = "Kepada Yth: " + value;
-      updateLink(value);
-      // update URL di browser tanpa reload
-      const newUrl = window.location.origin + window.location.pathname + "?nama=" + encodeURIComponent(value);
-      window.history.replaceState({}, "", newUrl);
-    });
+    // Tampilkan nama tamu di cover page
+    document.getElementById("namaTamu").innerText = "Kepada Yth: " + decodeURIComponent(nama);
 
-    function updateLink(name) {
-      linkTamu.innerText = "undangan.html?nama=" + encodeURIComponent(name);
-    }
-
-    function bukaUndangan() {
-      const namaAkhir = inputNama.value.trim() || "Tamu Undangan";
-      window.location.href = "undangan.html?nama=" + encodeURIComponent(namaAkhir);
+    // Tombol buka acara menuju halaman utama undangan
+    function bukaAcara() {
+      window.location.href = "acara.html?nama=" + encodeURIComponent(nama);
     }
   </script>
 </body>
